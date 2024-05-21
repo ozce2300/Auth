@@ -3,6 +3,7 @@ const router = express.Router();
 const sqlite3 = require("sqlite3");
 require("dotenv").config();
 const bcrypt = require("bcrypt");
+const jwt = require("jsonwebtoken");
 
 
 // Connect to database
@@ -65,8 +66,15 @@ router.post ("/login", async(req, res) => {
                 }
 
                 else {
-                    //correct login
-                    res.status(200).json({message: "Correct login"});
+                    //correct login & JWT
+                    const payload = {username: username};
+                    const token = jwt.sign(payload, process.env.JWT_SECRET_KEY, {expiresIn: "1h"});
+                    const response = {
+                        message: "user logged in!",
+                        token: token
+                    }
+                    res.status(200).json({response});
+
                 }
             }
         })
