@@ -3,7 +3,7 @@
 const express = require("express");
 const bodyParser = require("body-parser");
 const authRoutes = require ("./routes/authRoutes")
-require ("dotenv").config();
+require("dotenv").config();
 const jwt = require("jsonwebtoken")
 
 
